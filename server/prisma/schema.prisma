@@ -6,3 +6,30 @@ datasource db {
   provider = "postgresql"
   url = env ("DATABASE_URL")
 }
+
+model User {
+  id  Int @id @default(autoincrement())
+  email String @unique
+  name String?
+  habits Habit[]
+  transaction Transaction[]
+}
+
+model Habit {
+  id Int @id @default(autoincrement())
+  title String
+  streak Int @default(0)
+  userId Int
+  user   User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  }
+
+  model Transaction {
+    id Int @id @default (autoincrement())
+    amount Float
+    category String
+    type String
+    userId Int
+    user User @relation{fields : [userId], references : [id]}
+    createdAt DateTime @default(now())  
+  }
