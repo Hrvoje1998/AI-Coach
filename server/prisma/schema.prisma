@@ -1,35 +1,43 @@
 generator client {
- provides = "prisma-client-js" 
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url = env ("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id  Int @id @default(autoincrement())
-  email String @unique
-  name String?
-  habits Habit[]
-  transaction Transaction[]
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  name         String?
+  habits       Habit[]
+  transactions Transaction[]
+  goals        Goal[]
 }
 
 model Habit {
-  id Int @id @default(autoincrement())
-  title String
-  streak Int @default(0)
-  userId Int
-  user   User     @relation(fields: [userId], references: [id])
+  id        Int      @id @default(autoincrement())
+  title     String
+  streak    Int      @default(0)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
-  }
+}
 
-  model Transaction {
-    id Int @id @default (autoincrement())
-    amount Float
-    category String
-    type String
-    userId Int
-    user User @relation{fields : [userId], references : [id]}
-    createdAt DateTime @default(now())  
-  }
+model Transaction {
+  id        Int      @id @default(autoincrement())
+  amount    Float
+  category  String
+  type      String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Goal {
+  id        Int      @id @default(autoincrement())
+  title     String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+}
