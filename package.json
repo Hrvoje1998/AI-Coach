@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "axios": "^1.13.4",
+    "react-router-dom": "^7.13.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.22.0"
+  }
+}
